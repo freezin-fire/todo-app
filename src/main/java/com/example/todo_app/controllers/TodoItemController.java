@@ -7,6 +7,7 @@ import java.time.ZoneId;
 
 import com.example.todo_app.models.TodoItem;
 import com.example.todo_app.repositories.TodoItemRepo;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,29 +37,29 @@ public class TodoItemController {
         return modelAndView;
     }
 
-//    @PostMapping("/todo")
-//    public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "add-todo-item";
-//        }
-//
-//        todoItem.setCreatedDate(Instant.now());
-//        todoItem.setModifiedDate(Instant.now());
-//        todoItemRepository.save(todoItem);
-//        return "redirect:/";
-//    }
-//
-//    @PostMapping("/todo/{id}")
-//    public String updateTodoItem(@PathVariable("id") long id, @Valid TodoItem todoItem, BindingResult result,
-//            Model model) {
-//        if (result.hasErrors()) {
-//            todoItem.setId(id);
-//            return "update-todo-item";
-//        }
-//
-//        todoItem.setModifiedDate(Instant.now());
-//        todoItemRepository.save(todoItem);
-//        return "redirect:/";
-//    }
+    @PostMapping("/todo")
+    public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "add-todo-item";
+        }
+
+        todoItem.setCreatedDate(Instant.now());
+        todoItem.setModifiedDate(Instant.now());
+        todoItemRepo.save(todoItem);
+        return "redirect:/";
+    }
+
+    @PostMapping("/todo/{id}")
+    public String updateTodoItem(@PathVariable("id") long id, @Valid TodoItem todoItem, BindingResult result,
+            Model model) {
+        if (result.hasErrors()) {
+            todoItem.setId(id);
+            return "update-todo-item";
+        }
+
+        todoItem.setModifiedDate(Instant.now());
+        todoItemRepo.save(todoItem);
+        return "redirect:/";
+    }
 
 }
